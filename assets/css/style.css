@@ -1,30 +1,34 @@
-body {
+.container {
     max-width: 960px;
+    margin: 0 auto;
 }
 
-.about {
+.timeLeft {
     color: white;
 }
 
-/* html {
-	cursor: url(../images/controller.png), auto;
-} */
+html {
+	cursor: url(../images/virus.png), pointer;
+}
 
+img {
+    max-width: 200px;
+}
 p {
     color:  white;
     z-index: 999;
 }
 
-h1,
-h2,
-h3 {
+h1,h2,h3,h4 {
 	color: white;
 	padding: 25px;
 	text-shadow: 2px 2px rgb(0, 0, 0);
 }
+#correctAnswerCounter {
+    margin-top: 20px;
+}
 
-.answer,
-#timer {
+.answer,#timer {
 	font-weight: 900;
 }
 
@@ -46,11 +50,23 @@ h3 {
 }
 
 #gameWindow {
+    background: rgba(255, 255, 255, 0.226);
 	-webkit-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
 	-moz-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
-	box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+    box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+    padding: 40px;
 }
-
+#gameWindowImage {
+    background: rgba(255, 255, 255, 0.226);
+	-webkit-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+	-moz-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+    box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+    padding: 40px;
+    text-align: center;
+}
+.gameRow {
+    margin-top: 40px;
+}
 .shadow {
 	-webkit-box-shadow: -7px 6px 5px -1px rgba(0, 0, 0, 0.79);
 	-moz-box-shadow: -7px 6px 5px -1px rgba(0, 0, 0, 0.79);

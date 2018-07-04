@@ -37,7 +37,6 @@ $('#myBtn').click(function() {
 
 // GENERATE QUESTION AND CHOICES
 
-
 function questionContent() {
     
     $("#gameWindow").append("<p>" + 
@@ -51,22 +50,48 @@ function questionContent() {
         "</p><p class='choices'>" + 
         questions[questionCounter].choices[3] + 
         "</p>"); 
+    }
+
+// IF ANSWER IS CORRECT
+
+function correctGuess() {
+
+    $("#gameWindow").html("<p>Well done! </p>");
+    correctAnswers++;
+    var correctAnswer = questions[questionCounter].answer;
+    $("#gameWindow").append("<p>The answer was <span class='answer'>" + 
+        correctAnswer + 
+        "</span></p>" + "<p> Next question.</p>");
+        $("#gameWindowImage").append(questions[questionCounter].image);
+    setTimeout(nextQuestion, 4000);
+    questionCounter++;
 }
-console.log(questionContent());
 
-});
+// IF ANSWER IS INCORRECT
+
+function incorrectGuess() {
+
+    $("#gameWindow").html("<p>Incorrect.</p>");
+    incorrectAnswers++;
+    var correctAnswer = questions[questionCounter].correctAnswer;
+    $("#gameWindow").append("<p>The correct answer was <span class='answer'>" + 
+        correctAnswer + 
+        "</span></p>" + "<p> Next question.</p>");
+        $("#gameWindowImage").append(questions[questionCounter].image);
+    setTimeout(nextQuestion, 4000);
+    questionCounter++;
+}
 
 
-// function correctGuess() {
 
-//     $("#gameWindow").html("<p>Well done!</p>");
-//     correctAnswers++;
-//     var correctAnswer = questions[questionCounter].answer;
-//     $("#gameWindow").append("<p>The answer was <span class='answer'>" + 
-//         correctAnswer + 
-//         "</span></p>" + 
-//         questions[questionCounter].image);
-//     setTimeout(nextQuestion, 4000);
-//     questionCounter++;
-// }
 
+
+
+
+
+
+
+
+
+
+}); // END OF DOCUMENT READY FUNCTION
