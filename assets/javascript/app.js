@@ -36,6 +36,7 @@ $(document).ready(function () {
     // GAME FUNCTIONS:
 
     // INITIALIZE GAME
+
     $("#gameWindow").hide();
     $("#gameWindowImage").hide();
     function startGame() {
@@ -47,16 +48,17 @@ $(document).ready(function () {
 
     } // End of startGame function
 
-    $("#start").click(function() {
+    $("#start").click(function () {
         $("#gameWindow").show();
         $("#gameWindowImage").show();
         nextQuestion();
         $(this).hide();
     });
-    
+
     $("#gameWindow").on("click", ".choices", (function () {
 
         var Guess = $(this).text();
+
         if (Guess === questions[questionCounter].answer) {
             clearInterval(clock);
             correctGuess();
@@ -127,6 +129,7 @@ $(document).ready(function () {
     function outOfTime() {
 
         if (timer === 0) {
+
             $("#gameWindow").html("<p>Out of time!</p>");
             incorrectAnswers++;
             var correctAnswer = questions[questionCounter].answer;
@@ -146,14 +149,18 @@ $(document).ready(function () {
     function countDownTimer() {
 
         clock = setInterval(countDown, 1000);
+
         function countDown() {
+
             if (timer < 1) {
                 clearInterval(clock);
                 outOfTime();
             } // End of first if
+
             if (timer > 0) {
                 timer--;
             } // End of second if
+
             $(".timeLeft").html("TIME LEFT: " + "<strong>" + timer + "</strong>");
 
         } // End of countDown function
@@ -164,7 +171,9 @@ $(document).ready(function () {
     // NEXT QUESTION FUNCTION:
 
     function nextQuestion() {
+
         $("#gameWindowImage").empty();
+
         if (questionCounter < questions.length) {
             timer = 15;
             $("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds to answer.</p>");
@@ -172,6 +181,7 @@ $(document).ready(function () {
             countDownTimer();
             outOfTime();
         } // End of if
+
         else {
             resultsScreen();
 
@@ -186,12 +196,15 @@ $(document).ready(function () {
         if (correctAnswers === questions.length) {
             var endPrompt = "100%! You've done your Biology homework!";
         } // end of if
+
         else if (correctAnswers > incorrectAnswers) {
             var endPrompt = "Good work! Check out your final score.";
         } // End of else if 1
+
         else if (correctAnswers < 2) {
             var endPrompt = "You... must have taken some sort of Biology class at some point in your life... Did you not? I mean... wow... That is embarassing. I'll be honest with you... I'm not even gonna sugar coat it at this point... I mean, to be completely frank... Without holding anything back...  I'm just saying... That was... You know what? Leave. Just leave... I can't even with you right now. Just go. I'm done.";
         } // End of else if 2
+        
         else {
             var endPrompt = "Well... You tried.";
         } // End of else
