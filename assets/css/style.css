@@ -12,7 +12,7 @@ html {
 }
 
 img {
-    max-width: 200px;
+    max-width: 300px;
 }
 p {
     color:  white;
@@ -36,33 +36,45 @@ h1,h2,h3,h4 {
 #start {
     color: white;
     text-align: center;
+    width: 200px;
+    padding: 20px 5px 20px 5px;
+    margin: 0 auto;
+    display: block;
+   
 }
-
+#start:hover {
+    border: 1px solid white;
+    border-radius: 10px;
+    -webkit-transition: border 0.2s ease-in-out;
+    -moz-transition: border 0.2s ease-in-out;
+    -o-transition: border 0.2s ease-in-out;
+    transition: border 0.2s ease-in-out;
+}
 .choices {
 	text-align: center;
-	border: groove 2px black;
+	border: groove 2px rgb(255, 255, 255);
 	border-radius: 5%;
-    margin: 0 35%;
+    margin: 2% 35%;
     color: white;
 }
 
 .choices:hover {
-	background-color: rgb(0, 0, 0);
+	background-color: rgba(96, 130, 134, 0.5);
 	color: white;
 }
 
 #gameWindow {
-    background: rgba(255, 255, 255, 0.226);
+    background: rgba(82, 81, 81, 0.226);
 	-webkit-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
 	-moz-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
     box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
     padding: 40px;
 }
 #gameWindowImage {
-    background: rgba(255, 255, 255, 0.226);
+    /* background: rgba(255, 255, 255, 0.226);
 	-webkit-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
 	-moz-box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
-    box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79);
+    box-shadow: 7px 5px 47px 0px rgba(0, 0, 0, 0.79); */
     padding: 40px;
     text-align: center;
 }
@@ -91,7 +103,8 @@ h1,h2,h3,h4 {
     background: rgba(0, 0, 0, 0.5);
     color: #f1f1f1;
     width: 100%;
-    padding: 20px;
+    padding: 0px 20px 20px 20px;
+  
 }
 
 #myBtn {
@@ -99,7 +112,7 @@ h1,h2,h3,h4 {
     font-size: 18px;
     padding: 10px;
     border: none;
-    background: #000;
+    background: rgba(0, 0, 0, 0.493);
     color: #fff;
     cursor: pointer;
 }

@@ -35,6 +35,44 @@ $(document).ready(function () {
 
     // GAME FUNCTIONS:
 
+    // INITIALIZE GAME
+    $("#gameWindow").hide();
+    $("#gameWindowImage").hide();
+    function startGame() {
+
+        $("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds left!</p>");
+        questionContent();
+        timer();
+        outOfTime();
+
+    } // End of startGame function
+
+    $("#start").click(function() {
+        $("#gameWindow").show();
+        $("#gameWindowImage").show();
+        nextQuestion();
+        $(this).hide();
+    });
+    
+    $("#gameWindow").on("click", ".choices", (function () {
+
+        var Guess = $(this).text();
+        if (Guess === questions[questionCounter].answer) {
+            clearInterval(clock);
+            correctGuess();
+
+        } // end of if
+
+        else {
+            clearInterval(clock);
+            incorrectGuess();
+
+        } // End of else
+
+    })); // End of on "Click" function
+
+
+
     // GENERATE QUESTION AND CHOICES
 
     function questionContent() {
@@ -50,7 +88,7 @@ $(document).ready(function () {
             "</p><p class='choices'>" +
             questions[questionCounter].choices[3] +
             "</p>");
-    }
+    } // End of questionContent function
 
     // IF ANSWER IS CORRECT
 
@@ -62,10 +100,11 @@ $(document).ready(function () {
         $("#gameWindow").append("<p>The answer was <span class='answer'>" +
             correctAnswer +
             "</span></p>" + "<p> Next question.</p>");
-        $("#gameWindowImage").append(questions[questionCounter].image);
-        setTimeout(nextQuestion, 4000);
+        $("#gameWindowImage").html(questions[questionCounter].image);
+        setTimeout(nextQuestion, 5000);
         questionCounter++;
-    }
+
+    } // End of correctGuess function
 
     // IF ANSWER IS INCORRECT
 
@@ -73,14 +112,15 @@ $(document).ready(function () {
 
         $("#gameWindow").html("<p>Incorrect.</p>");
         incorrectAnswers++;
-        var correctAnswer = questions[questionCounter].correctAnswer;
+        var correctAnswer = questions[questionCounter].answer;
         $("#gameWindow").append("<p>The correct answer was <span class='answer'>" +
             correctAnswer +
             "</span></p>" + "<p> Next question.</p>");
-        $("#gameWindowImage").append(questions[questionCounter].image);
-        setTimeout(nextQuestion, 4000);
+        $("#gameWindowImage").html(questions[questionCounter].image);
+        setTimeout(nextQuestion, 5000);
         questionCounter++;
-    }
+
+    } // End of incorrectGuess function
 
     // IF USER RUNS OUT OF TIME WITHOUT ANSWERING
 
@@ -89,19 +129,22 @@ $(document).ready(function () {
         if (timer === 0) {
             $("#gameWindow").html("<p>Out of time!</p>");
             incorrectAnswers++;
-            var correctAnswer = questions[questionCounter].correctAnswer;
+            var correctAnswer = questions[questionCounter].answer;
             $("#gameWindow").append("<p>The correct answer was <span class='answer'>" +
                 correctAnswer +
                 "</span></p>" + "<p> Next question.</p>");
-            $("#gameWindowImage").append(questions[questionCounter].image);
-            setTimeout(nextQuestion, 4000);
+            $("#gameWindowImage").html(questions[questionCounter].image);
+            setTimeout(nextQuestion, 5000);
             questionCounter++;
-        }
-    }
+
+        } // End of if 
+
+    } // End of outOfTime function
 
     // TIMER FUNCTION:
 
     function countDownTimer() {
+
         clock = setInterval(countDown, 1000);
         function countDown() {
             if (timer < 1) {
@@ -112,51 +155,62 @@ $(document).ready(function () {
                 timer--;
             } // End of second if
             $(".timeLeft").html("TIME LEFT: " + "<strong>" + timer + "</strong>");
-        } // End of countDown function
-    } // End of timer function
-    
 
-// NEXT QUESTION FUNCTION:
+        } // End of countDown function
+
+    } // End of countDowntimer function
+
+
+    // NEXT QUESTION FUNCTION:
 
     function nextQuestion() {
-		if (questionCounter < questions.length) {
-			timer = 20;
-			$("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds to answer.</p>");
-			questionContent();
-			countDownTimer();
-			outOfTime();
-		}
-		else {
-			resultsScreen();
-		}
-	}
+        $("#gameWindowImage").empty();
+        if (questionCounter < questions.length) {
+            timer = 15;
+            $("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds to answer.</p>");
+            questionContent();
+            countDownTimer();
+            outOfTime();
+        } // End of if
+        else {
+            resultsScreen();
 
-// FINAL ANSWER RESULTS
+        }// End of else
+
+    } // End of nextQuestion
+
+    // FINAL ANSWER RESULTS
 
     function resultsScreen() {
-		if (correctAnswers === questions.length) {
-			var endPrompt = "100%! You've done your Biology homework!";
-		}
-		else if (correctAnswers > incorrectAnswers) {
-			var endPrompt = "Good work! Check out your final score.";
-		}
-		else {
-			var endPrompt = "You... Must have taken some sort of Biology class... Did you not? Wow... If not, you might be retarded.";
-		}
-		$("#gameWindow").html("<p>" + endPrompt + "</p>" + "<p>You got <strong>" + 
-			correctAnswers + "</strong> right.</p>" + 
-			"<p>You got <strong>" + incorrectAnswers + "</strong> wrong.</p>");
-		$("#gameWindow").append("<h1 id='start'>Try again?</h1>");
-		$("#bottomText").html(bottomText);
-		gameReset();
-		$("#start").click(nextQuestion);
-	}
 
+        if (correctAnswers === questions.length) {
+            var endPrompt = "100%! You've done your Biology homework!";
+        } // end of if
+        else if (correctAnswers > incorrectAnswers) {
+            var endPrompt = "Good work! Check out your final score.";
+        } // End of else if 1
+        else if (correctAnswers < 2) {
+            var endPrompt = "You... must have taken some sort of Biology class at some point in your life... Did you not? I mean... wow... That is embarassing. I'll be honest with you... I'm not even gonna sugar coat it at this point... I mean, to be completely frank... Without holding anything back...  I'm just saying... That was... You know what? Leave. Just leave... I can't even with you right now. Just go. I'm done.";
+        } // End of else if 2
+        else {
+            var endPrompt = "Well... You tried.";
+        } // End of else
 
+        $("#gameWindow").html("<p>" + endPrompt + "</p>" + "<p>You got <strong>" +
+            correctAnswers + "</strong> right.</p>" +
+            "<p>You got <strong>" + incorrectAnswers + "</strong> wrong.</p>");
+        $("#gameWindow").append("<h1 id='start'>Try again?</h1>");
+        gameReset();
+        $("#start").click(nextQuestion);
 
+    } // End of resultsScreen function
 
+    // GAME RESET FUNCTION:
 
-
-
+    function gameReset() {
+        questionCounter = 0;
+        correctAnswers = 0;
+        incorrectAnswers = 0;
+    } // End of gameReset
 
 }); // END OF DOCUMENT READY FUNCTION
