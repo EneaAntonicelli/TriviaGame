@@ -19,73 +19,138 @@ var btn = document.getElementById("myBtn");
 
 // PAUSE AND PLAY THE VIDEO + CHANGE BUTTON TEXT
 
-$(document).ready(function() {
+$(document).ready(function () {
 
-$('#myBtn').click(function() {
-    if (video.paused) {
-        video.play();
-        btn.innerHTML = "Pause";
-    } else {
-        video.pause();
-        btn.innerHTML = "Play";
+    $('#myBtn').click(function () {
+        if (video.paused) {
+            video.play();
+            btn.innerHTML = "Pause";
+        } else {
+            video.pause();
+            btn.innerHTML = "Play";
+        }
+    }); // END OF #myBtn FUNCTION CALL
+
+
+
+    // GAME FUNCTIONS:
+
+    // GENERATE QUESTION AND CHOICES
+
+    function questionContent() {
+
+        $("#gameWindow").append("<p>" +
+            questions[questionCounter].question +
+            "</p><p class='choices'>" +
+            questions[questionCounter].choices[0] +
+            "</p><p class='choices'>" +
+            questions[questionCounter].choices[1] +
+            "</p><p class='choices'>" +
+            questions[questionCounter].choices[2] +
+            "</p><p class='choices'>" +
+            questions[questionCounter].choices[3] +
+            "</p>");
     }
-}); // END OF #myBtn FUNCTION CALL
 
+    // IF ANSWER IS CORRECT
 
+    function correctGuess() {
 
-// GAME FUNCTIONS:
+        $("#gameWindow").html("<p>Well done! </p>");
+        correctAnswers++;
+        var correctAnswer = questions[questionCounter].answer;
+        $("#gameWindow").append("<p>The answer was <span class='answer'>" +
+            correctAnswer +
+            "</span></p>" + "<p> Next question.</p>");
+        $("#gameWindowImage").append(questions[questionCounter].image);
+        setTimeout(nextQuestion, 4000);
+        questionCounter++;
+    }
 
-// GENERATE QUESTION AND CHOICES
+    // IF ANSWER IS INCORRECT
 
-function questionContent() {
+    function incorrectGuess() {
+
+        $("#gameWindow").html("<p>Incorrect.</p>");
+        incorrectAnswers++;
+        var correctAnswer = questions[questionCounter].correctAnswer;
+        $("#gameWindow").append("<p>The correct answer was <span class='answer'>" +
+            correctAnswer +
+            "</span></p>" + "<p> Next question.</p>");
+        $("#gameWindowImage").append(questions[questionCounter].image);
+        setTimeout(nextQuestion, 4000);
+        questionCounter++;
+    }
+
+    // IF USER RUNS OUT OF TIME WITHOUT ANSWERING
+
+    function outOfTime() {
+
+        if (timer === 0) {
+            $("#gameWindow").html("<p>Out of time!</p>");
+            incorrectAnswers++;
+            var correctAnswer = questions[questionCounter].correctAnswer;
+            $("#gameWindow").append("<p>The correct answer was <span class='answer'>" +
+                correctAnswer +
+                "</span></p>" + "<p> Next question.</p>");
+            $("#gameWindowImage").append(questions[questionCounter].image);
+            setTimeout(nextQuestion, 4000);
+            questionCounter++;
+        }
+    }
+
+    // TIMER FUNCTION:
+
+    function countDownTimer() {
+        clock = setInterval(countDown, 1000);
+        function countDown() {
+            if (timer < 1) {
+                clearInterval(clock);
+                outOfTime();
+            } // End of first if
+            if (timer > 0) {
+                timer--;
+            } // End of second if
+            $(".timeLeft").html("TIME LEFT: " + "<strong>" + timer + "</strong>");
+        } // End of countDown function
+    } // End of timer function
     
-    $("#gameWindow").append("<p>" + 
-        questions[questionCounter].question + 
-        "</p><p class='choices'>" + 
-        questions[questionCounter].choices[0] + 
-        "</p><p class='choices'>" + 
-        questions[questionCounter].choices[1] + 
-        "</p><p class='choices'>" + 
-        questions[questionCounter].choices[2] + 
-        "</p><p class='choices'>" + 
-        questions[questionCounter].choices[3] + 
-        "</p>"); 
-    }
 
-// IF ANSWER IS CORRECT
+// NEXT QUESTION FUNCTION:
 
-function correctGuess() {
+    function nextQuestion() {
+		if (questionCounter < questions.length) {
+			timer = 20;
+			$("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds to answer.</p>");
+			questionContent();
+			countDownTimer();
+			outOfTime();
+		}
+		else {
+			resultsScreen();
+		}
+	}
 
-    $("#gameWindow").html("<p>Well done! </p>");
-    correctAnswers++;
-    var correctAnswer = questions[questionCounter].answer;
-    $("#gameWindow").append("<p>The answer was <span class='answer'>" + 
-        correctAnswer + 
-        "</span></p>" + "<p> Next question.</p>");
-        $("#gameWindowImage").append(questions[questionCounter].image);
-    setTimeout(nextQuestion, 4000);
-    questionCounter++;
-}
+// FINAL ANSWER RESULTS
 
-// IF ANSWER IS INCORRECT
-
-function incorrectGuess() {
-
-    $("#gameWindow").html("<p>Incorrect.</p>");
-    incorrectAnswers++;
-    var correctAnswer = questions[questionCounter].correctAnswer;
-    $("#gameWindow").append("<p>The correct answer was <span class='answer'>" + 
-        correctAnswer + 
-        "</span></p>" + "<p> Next question.</p>");
-        $("#gameWindowImage").append(questions[questionCounter].image);
-    setTimeout(nextQuestion, 4000);
-    questionCounter++;
-}
-
-
-
-
-
+    function resultsScreen() {
+		if (correctAnswers === questions.length) {
+			var endPrompt = "100%! You've done your Biology homework!";
+		}
+		else if (correctAnswers > incorrectAnswers) {
+			var endPrompt = "Good work! Check out your final score.";
+		}
+		else {
+			var endPrompt = "You... Must have taken some sort of Biology class... Did you not? Wow... If not, you might be retarded.";
+		}
+		$("#gameWindow").html("<p>" + endPrompt + "</p>" + "<p>You got <strong>" + 
+			correctAnswers + "</strong> right.</p>" + 
+			"<p>You got <strong>" + incorrectAnswers + "</strong> wrong.</p>");
+		$("#gameWindow").append("<h1 id='start'>Try again?</h1>");
+		$("#bottomText").html(bottomText);
+		gameReset();
+		$("#start").click(nextQuestion);
+	}
 
 
 
