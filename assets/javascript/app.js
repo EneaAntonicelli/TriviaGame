@@ -21,6 +21,9 @@ var btn = document.getElementById("myBtn");
 
 $(document).ready(function () {
 
+        $("#my_audio").get(0).play();
+    
+
     $('#myBtn').click(function () {
         if (video.paused) {
             video.play();
