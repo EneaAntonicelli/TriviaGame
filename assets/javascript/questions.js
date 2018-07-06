@@ -32,6 +32,34 @@ var questions = [
 	},
 
 	{
+		question: "What living animal has the heaviest brain?",
+		choices: ["African Bush Elephant", "Black Rhinoceros", "Sperm Whale", "Human"],
+		answer: "Sperm Whale",
+		image: "<img src='assets/images/spermWhale.png' class='answerImage'>"
+	},
+
+	{
+		question: "Unlike most other fish, sharks have no ___",
+		choices: ["Liver", "Gills", "Heart", "Bones"],
+		answer: "Bones",
+		image: "<img src='assets/images/shark.png' class='answerImage'>"
+	},
+
+	{
+		question: "Which of these is a multi-cellular animal with no circulatory system, and hence no heart?",
+		choices: ["Amoeba", "Paramecium", "Butterfly", "Jellyfish"],
+		answer: "Jellyfish",
+		image: "<img src='assets/images/jellyfish.png' class='answerImage'>"
+	},
+
+	{
+		question: "Which of the following has the longest recorded life span?",
+		choices: ["Termite", "Chimpanzee", "Indian Elephant", "Oyster"],
+		answer: "Oyster",
+		image: "<img src='assets/images/oyster.png' class='answerImage'>"
+	},
+
+	{
 		question: "Which gland in the human body regulates metabolism?",
 		choices: ["Thyroid", "Pituitary", "Endocrine", "Hypothalamus"],
 		answer: "Thyroid",

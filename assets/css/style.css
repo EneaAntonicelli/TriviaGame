@@ -18,7 +18,8 @@ html {
   }
 
 img {
-    max-width: 300px;
+    max-width: 400px;
+    max-height: 400px;
 }
 p {
     color:  white;
