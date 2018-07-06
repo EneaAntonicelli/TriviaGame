@@ -2,7 +2,7 @@
 // GLOBAL VARIABLES:
 
 var questionCounter = 0;
-var timer = 20;
+var timer = 15;
 var correctAnswers = 0;
 var incorrectAnswers = 0;
 
@@ -20,9 +20,6 @@ var btn = document.getElementById("myBtn");
 // PAUSE AND PLAY THE VIDEO + CHANGE BUTTON TEXT
 
 $(document).ready(function () {
-
-        $("#my_audio").get(0).play();
-    
 
     $('#myBtn').click(function () {
         if (video.paused) {
@@ -45,8 +42,8 @@ $(document).ready(function () {
     function startGame() {
 
         $("#gameWindow").html("<p>You have <span id='timer'>" + timer + "</span> seconds left!</p>");
-        questionContent();
         timer();
+        questionContent();
         outOfTime();
 
     } // End of startGame function
@@ -151,6 +148,8 @@ $(document).ready(function () {
 
     function countDownTimer() {
 
+        $(".timeLeft").html("TIME LEFT: " + "<strong>" + timer + "</strong>");
+        
         clock = setInterval(countDown, 1000);
 
         function countDown() {
@@ -229,4 +228,9 @@ $(document).ready(function () {
         incorrectAnswers = 0;
     } // End of gameReset
 
+
+    // INITIATE AUDIO PLAYER AT THE TOP LEFT OF THE SCREEN
+
+    
+    
 }); // END OF DOCUMENT READY FUNCTION

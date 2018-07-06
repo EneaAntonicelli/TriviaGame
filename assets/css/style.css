@@ -11,6 +11,12 @@ html {
 	cursor: url(../images/virus.png), pointer;
 }
 
+.audios, #result {
+    position: fixed;
+    bottom: 20px;
+    right: 5px;
+  }
+
 img {
     max-width: 300px;
 }
